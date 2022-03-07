@@ -3,7 +3,11 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Print(minFlips("01010111"))
+	fmt.Print(minFlips("01010111"), "\n")          //1
+	fmt.Print(minFlips("110"), "\n")               //0
+	fmt.Print(minFlips("01001001101"), "\n")       //2
+	fmt.Print(minFlips("10001100101000000"), "\n") //5
+
 }
 
 func minFlips(s string) int {
@@ -35,16 +39,31 @@ func minFlips(s string) int {
 		return minT2
 	}
 
-	m := int(^uint(0) >> 1)
 	r := []rune(s)
 	r_s := len(r)
-	for i := 0; i < r_s-1; i++ {
-		c := t(r)
-		if c < m {
-			m = c
-		}
-		r = append(r[1:], r[0])
+	if r_s == 1 {
+		return 0
 	}
 
-	return m
+	if r_s > 2 {
+		i := 0
+		for i < r_s-2 {
+			if r[i] != r[i+1] {
+				i++
+			} else {
+				r1 := append(r[i+1:r_s], r[0:i+1]...)
+				fmt.Print(string(r), "\n")
+				fmt.Print(string(r1), "\n")
+				if t(r1) < t(r) {
+					r = r1
+					i = 0
+					continue
+				}
+				break
+
+			}
+		}
+	}
+
+	return t(r)
 }

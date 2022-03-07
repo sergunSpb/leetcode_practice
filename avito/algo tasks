@@ -1,0 +1,49 @@
+g# Возвращает отсортированный массив
+def sort_bool(arr: List[bool]) -> List[bool]:
+    pos_true = None
+    
+    if len(arr) < 2:
+        return arr
+        
+    for i,v in enumerate(arr):
+        if  pos_true is None and v == True:
+            pos_true = i
+        if pos_true is not None and v == False:        
+            arr[pos_true] , arr[i] = arr[i], arr[pos_true]
+            pos_true += 1
+    
+    return arr  
+
+
+sort_bool([True, False, False, False, False, False, False]) # [False, False, True, True]
+
+
+
+
+
+
+
+# находит все пары из list дающие в сумме target
+# list - не отсортированный массив уникальных целых чисел
+# target - целое число
+# возвращает результат в виде массива пар(массив из 2 чисел) без повторений
+def find_pairs(arr: List[int], target: int) -> List[List[int]]:
+    cache = {}
+    retval = []
+    for i in arr :
+        if i in cache : 
+            retval.append([i, target -i ])
+        cache[target-i] = None
+    return retval         
+
+find_pairs([2, 4, 5, 3], 7) # [[2,5], [4,3]]
+
+
+
+
+# [1, 2, 3, 4, 5, 10]
+
+
+
+
+
