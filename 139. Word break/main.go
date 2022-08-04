@@ -9,7 +9,7 @@ func main() {
 
 }
 
-func wordBreak(s string, wordDict []string) bool {
+func wordBreak2(s string, wordDict []string) bool {
 	var cache map[int]bool = make(map[int]bool)
 
 	var f func(pos int) bool
@@ -26,6 +26,37 @@ func wordBreak(s string, wordDict []string) bool {
 					return true
 				} else {
 					cache[pos+len(word)] = false
+				}
+			}
+		}
+		return false
+	}
+
+	return f(0)
+}
+
+func wordBreak(s string, wordDict []string) bool {
+	var cache map[int]bool = make(map[int]bool)
+
+	words := make(map[string]struct{}, len(wordDict))
+	for _, v := range wordDict {
+		words[v] = struct{}{}
+	}
+
+	var f func(pos int) bool
+	f = func(pos int) bool {
+		for i := pos + 1; i <= len(s); i++ {
+			if _, ok := words[s[pos:i]]; ok {
+				if i == len(s) {
+					return true
+				}
+				if _, ok := cache[i]; ok {
+					continue
+				}
+				if f(i) {
+					return true
+				} else {
+					cache[i] = false
 				}
 			}
 		}
