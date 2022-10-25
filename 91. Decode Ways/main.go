@@ -19,9 +19,9 @@ func numDecodings(s string) int {
 		return 1
 	}
 
-	decodeMap := make(map[rune]struct{}, 26)
+	decodeMap := make(map[string]struct{}, 26)
 	for i := 1; i <= 26; i++ {
-		decodeMap[rune(strconv.Itoa(i))] = struct{}{}
+		decodeMap[strconv.Itoa(i)] = struct{}{}
 	}
 
 	p0, p1 := 0, 1
