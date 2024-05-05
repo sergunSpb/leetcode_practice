@@ -24,7 +24,7 @@ func reverseWords(s string) string {
 		i++
 	}
 
-	if st > 0 {
+	if st >= 0 {
 		words = append(words, s[st:])
 	}
 
